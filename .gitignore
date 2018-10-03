@@ -1,3 +1,4 @@
+.DS_Store
 .idea
 venv
 *.pyc
@@ -5,3 +6,4 @@ venv
 run_local.sh
 data
 tmp
+service_account.json
