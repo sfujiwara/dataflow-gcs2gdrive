@@ -61,6 +61,10 @@ class CopyFile(beam.DoFn):
 def main():
     # Create options
     options = PipelineOptions()
+    options = options.view_as(beam.options.pipeline_options.SetupOptions)
+    options.setup_file = "./setup.py"
+    options = options.view_as(beam.options.pipeline_options.GoogleCloudOptions)
+    options.job_name = "gcs2gdrive"
     options = options.view_as(TemplateOptions)
 
     p = beam.Pipeline(options=options)

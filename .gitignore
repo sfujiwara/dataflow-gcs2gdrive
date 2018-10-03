@@ -2,8 +2,11 @@
 .idea
 venv
 *.pyc
+*.egg-info
 
-run_local.sh
 data
 tmp
 service_account.json
+
+run_local.sh
+deploy_template.sh

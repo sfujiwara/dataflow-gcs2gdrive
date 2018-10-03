@@ -29,7 +29,7 @@ gs://gcs/file/path2,file_name_in_gdrive2
 ### service_account_file
 
 Google Cloud Storage path of the service account file, for example `gs://your-bucket/hoge.json`.
-This service account is used to access Google Drive API.
+This service account is only used to access Google Drive API.
 
 ### gdrive_directory_id
 
