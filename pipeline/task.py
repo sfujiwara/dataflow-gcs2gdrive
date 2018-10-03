@@ -8,7 +8,7 @@ class TemplateOptions(PipelineOptions):
 
     @classmethod
     def _add_argparse_args(cls, parser):
-        parser.add_value_provider_argument("--query", type=str)
+        parser.add_value_provider_argument("--input_csv", type=str)
         parser.add_value_provider_argument("--service_account_file", type=str)
         parser.add_value_provider_argument("--gdrive_directory_id", type=str)
 
@@ -35,7 +35,7 @@ def main():
     pipeline_input = ["hello", "world"]
 
     (p | "Read" >> beam.Create(pipeline_input)
-       | "Write" >> beam.ParDo(SaveFile(options.gcs_file_path)))
+       | "Write" >> beam.ParDo(CopyFile(options.gcs_file_path)))
 
     p.run()
 

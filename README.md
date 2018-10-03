@@ -4,14 +4,27 @@ This is an implementation of Dataflow Template copying files from Google Cloud S
 
 ## Input Parameters for Dataflow Template
 
-### query
+### input_csv
 
-A query string whose result is a table below:
+A Google Cloud Storage path of input CSV file, for example `gs://hoge/fuga.csv`.
+
+The CSV has two columns:
+
+- Google Cloud Storage File Path
+- Google Drive File Name
 
 | gcs_file_path      | gdrive_file_name    |
 |:------------------:|:-------------------:|
 | gs://gcs/file/path | file_name_in_gdrive |
 | ...                | ...                 |
+
+Note that the CSV should not have header row as below:
+
+```csv
+gs://gcs/file/path1,file_name_in_gdrive1
+gs://gcs/file/path2,file_name_in_gdrive2
+...
+```
 
 ### service_account_file
 
@@ -28,6 +41,10 @@ Note that the service account should have permission to access this directory.
 TODO: image
 
 ## Deploy Dataflow Template
+
+```bash
+pip install -r requirements.txt
+```
 
 ```bash
 PROJECT_ID="<Your Project ID>"
