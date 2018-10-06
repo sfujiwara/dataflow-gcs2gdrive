@@ -60,3 +60,18 @@ python -m pipeline.task \
 ## Use Dataflow Template
 
 TODO
+
+## Frequently Asked Questions
+
+### How can we deal with file name or GCS Path which contains `,`?
+
+Quote with `"` as below:
+
+```
+gs://gcs/file/path,"google,drive,file,name.pdf"
+```
+
+### We want to use `/` for a file name on Google Drive
+
+Sorry, we does not support it...
+Please replace with other strings.

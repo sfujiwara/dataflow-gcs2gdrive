@@ -24,9 +24,12 @@ class CopyFile(beam.DoFn):
         from google.oauth2 import service_account
         from googleapiclient.discovery import build
         from apiclient import http
+        import csv
         import os
-        gcs_file_path, gdrive_file_name = element.split(",")
-        gcs_file_path, gdrive_file_name = gcs_file_path.encode("utf-8"), gdrive_file_name.encode("utf-8")
+        elements = list(csv.reader([element.encode("utf-8")], delimiter=","))[0]
+        gcs_file_path, gdrive_file_name = elements
+        # gcs_file_path, gdrive_file_name = element.split(",")
+        # gcs_file_path, gdrive_file_name = gcs_file_path.encode("utf-8"), gdrive_file_name.encode("utf-8")
         # Read file in Cloud Storage
         with tf.gfile.Open(gcs_file_path, "rb") as f:
             file_content = f.read()
@@ -72,7 +75,6 @@ def main():
     (p | "Read" >> beam.io.ReadFromText(options.input_csv)
        | "Write" >> beam.ParDo(CopyFile(options.gdrive_directory_id, options.service_account_file)))
 
-    print("hello")
     p.run()
 
 
