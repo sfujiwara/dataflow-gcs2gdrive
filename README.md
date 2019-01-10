@@ -59,7 +59,37 @@ python -m pipeline.task \
 
 ## Use Dataflow Template
 
-TODO
+```python
+from googleapiclient.discovery import build
+from oauth2client.client import GoogleCredentials
+
+project_id = 'your-gcp-project-id'
+input_csv = 'gs://your/input/csv/file.csv'
+gdrive_directory_id = 'your-output-gdrive-directory-id'
+service_account_file = 'gs://your/service/account/file.json'
+dataflow_template = "gs://{}-dataflow/templates/gcs2gdrive".format(project_id)
+
+credentials = GoogleCredentials.get_application_default()
+service = build("dataflow", "v1b3", credentials=credentials, cache_discovery=False)
+body = {
+    "jobName": "hoge-gcs2gdrive-fuga",
+    "parameters": {
+        "input_csv": input_csv,
+        "gdrive_directory_id": gdrive_directory_id,
+        "service_account_file": service_account_file
+    },
+    "environment": {
+        "tempLocation": "gs://{}-dataflow/temp".format(project_id),
+        "zone": "us-central1-f"
+    }
+}
+request = service.projects().templates().launch(
+    projectId=project_id,
+    gcsPath=dataflow_template,
+    body=body,
+)
+response = request.execute()
+```
 
 ## Frequently Asked Questions
 
